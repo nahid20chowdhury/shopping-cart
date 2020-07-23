@@ -129,7 +129,7 @@
             document.getElementById("currentSpent").innerText = totalSpent;
 
             const totalTax = parseFloat(document.getElementById("tax-added").innerText);
-            const phoneTax = 100;
+            const phoneTax = 5;
             document.getElementById("tax-added").innerText = totalTax + phoneTax;
 
         })
@@ -172,6 +172,10 @@
                 const currentSpentNumber = parseFloat(currentSpent);
                 const totalSpent = currentSpentNumber - 59;
                 document.getElementById("currentSpent").innerText = totalSpent;
+
+                const totalTax = parseFloat(document.getElementById("tax-added").innerText);
+                const phoneTax = 5;
+                document.getElementById("tax-added").innerText = totalTax - phoneTax;
             }
         })
     </script>
