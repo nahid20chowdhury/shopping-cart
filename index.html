@@ -78,106 +78,80 @@
         </div>
     </section>
     <script>
-        var removeCartItem = document.getElementById("remove-cart1");
-        removeCartItem.addEventListener("click", function() {
-            const cartItem = document.getElementById("cartitem1")
-            cartItem.style.display = "none";
-        })
+        closeButton("remove-cart1", "cartitem1");
+        closeButton("remove-cart2", "cartitem2")
 
-        var removeCartItem = document.getElementById("remove-cart2");
-        removeCartItem.addEventListener("click", function() {
-            const cartItem = document.getElementById("cartitem2")
-            cartItem.style.display = "none";
-        })
+        function closeButton(removeCart, cartName) {
+            var removeCartItem = document.getElementById(removeCart);
+            removeCartItem.addEventListener("click", function() {
+                const cartItem = document.getElementById(cartName)
+                cartItem.style.display = "none";
+            })
+        }
 
-        // plus btn event handler
         plusBtn1.addEventListener("click", function() {
-            const currentPhoneNumber = parseFloat(document.getElementById("numberOfPhone").value);
-            const newPhoneNumber = currentPhoneNumber + 1;
-            document.getElementById("numberOfPhone").value = newPhoneNumber;
-
-            const phoneMoney = parseFloat(document.getElementById("phoneMoney").innerText);
-            const newphoneMoney = phoneMoney + 1219;
-            document.getElementById("phoneMoney").innerText = newphoneMoney;
-
-            // subtotal
-            const currentSpent = document.getElementById("currentSpent").innerText;
-            const currentSpentNumber = parseFloat(currentSpent);
-            const totalSpent = 1219 + currentSpentNumber;
-            document.getElementById("currentSpent").innerText = totalSpent;
-
-            // total
-            const totalTax = parseFloat(document.getElementById("tax-added").innerText);
-            const phoneTax = 100;
-            document.getElementById("tax-added").innerText = totalTax + phoneTax;
+            updateSpanText("numberOfPhone", "phoneMoney", 1219, "currentSpent", 1219, "tax-added", 100, "after-tax");
         })
-
-        // plus btn event handler
         plusBtn2.addEventListener("click", function() {
-            const currentCoverNumber = parseFloat(document.getElementById("numberOfCover").value);
-            const newCoverNumber = currentCoverNumber + 1;
-            document.getElementById("numberOfCover").value = newCoverNumber;
 
-            const coverMoney = parseFloat(document.getElementById("coverMoney").innerText);
-            const newCoverMoney = newCoverNumber * 59;
-            document.getElementById("coverMoney").innerText = newCoverMoney;
+            updateSpanText("numberOfCover", "coverMoney", 59, "currentSpent", 59, "tax-added", 5, "after-tax");
+        })
 
-            // subtotal
-            const currentSpent = document.getElementById("currentSpent").innerText;
+        function updateSpanText(id, money, perPlusAmount, spent, perPlusAm, tax, taxNumber, afTax) {
+            const currentNumber = parseFloat(document.getElementById(id).value);
+            const newNumber = currentNumber + 1;
+            document.getElementById(id).value = newNumber;
+
+            const moneyAm = parseFloat(document.getElementById(money).innerText);
+            const newMoneyAm = moneyAm + perPlusAmount;
+            document.getElementById(money).innerText = newMoneyAm;
+
+            const currentSpent = document.getElementById(spent).innerText;
             const currentSpentNumber = parseFloat(currentSpent);
-            const totalSpent = 59 + currentSpentNumber;
-            document.getElementById("currentSpent").innerText = totalSpent;
+            const totalSpent = currentSpentNumber + perPlusAm;
+            document.getElementById(spent).innerText = totalSpent;
 
-            const totalTax = parseFloat(document.getElementById("tax-added").innerText);
-            const phoneTax = 5;
-            document.getElementById("tax-added").innerText = totalTax + phoneTax;
+            const totalTax = parseFloat(document.getElementById(tax).innerText);
+            const allTax = taxNumber;
+            document.getElementById(tax).innerText = totalTax + allTax
 
-        })
-
-        // minus btn event handler
+            const afterTax = document.getElementById(afTax).innerText;
+            const afterTaxNumber = parseFloat(afterTax);
+            const totalAmount = afterTaxNumber + taxNumber + perPlusAmount;
+            document.getElementById(afTax).innerText = totalAmount
+        }
         minusBtn1.addEventListener("click", function() {
-            const currentPhoneNumber = parseFloat(document.getElementById("numberOfPhone").value);
-            if (currentPhoneNumber > 0) {
-                const newPhoneNumber = currentPhoneNumber - 1;
-                document.getElementById("numberOfPhone").value = newPhoneNumber;
-
-                const phoneMoney = parseFloat(document.getElementById("phoneMoney").innerText);
-                const newphoneMoney = newPhoneNumber * 1219;
-                document.getElementById("phoneMoney").innerText = newphoneMoney;
-
-                const currentSpent = document.getElementById("currentSpent").innerText;
-                const currentSpentNumber = parseFloat(currentSpent);
-                const totalSpent = currentSpentNumber - 1219;
-                document.getElementById("currentSpent").innerText = totalSpent;
-
-                const totalTax = parseFloat(document.getElementById("tax-added").innerText);
-                const phoneTax = 100;
-                document.getElementById("tax-added").innerText = totalTax - phoneTax;
-
-            }
+            minusSpanText("numberOfPhone", "phoneMoney", 1219, "currentSpent", "tax-added", 100, "after-tax");
         })
-
-        //   minus btn event handler
         minusBtn2.addEventListener("click", function() {
-            const currentCoverNumber = parseFloat(document.getElementById("numberOfCover").value);
-            if (currentCoverNumber > 0) {
-                const newCoverNumber = currentCoverNumber - 1;
-                document.getElementById("numberOfCover").value = newCoverNumber;
-
-                const coverMoney = parseFloat(document.getElementById("coverMoney").innerText);
-                const newCoverMoney = newCoverNumber * 59;
-                document.getElementById("coverMoney").innerText = newCoverMoney;
-
-                const currentSpent = document.getElementById("currentSpent").innerText;
-                const currentSpentNumber = parseFloat(currentSpent);
-                const totalSpent = currentSpentNumber - 59;
-                document.getElementById("currentSpent").innerText = totalSpent;
-
-                const totalTax = parseFloat(document.getElementById("tax-added").innerText);
-                const phoneTax = 5;
-                document.getElementById("tax-added").innerText = totalTax - phoneTax;
-            }
+            minusSpanText("numberOfCover", "coverMoney", 59, "currentSpent", "tax-added", 5, "after-tax");
         })
+
+        function minusSpanText(id1, toMoney, perMinus, spentCurrent, taxAdd, taxAddKor, takaMinus, ) {
+            const currentNumber1 = parseFloat(document.getElementById(id1).value);
+            if (currentNumber1 > 0) {
+                const newNumber1 = currentNumber1 - 1;
+                document.getElementById(id1).value = newNumber1;
+
+                const money1 = parseFloat(document.getElementById(toMoney).innerText);
+                const newMoney1 = newNumber1 * perMinus;
+                document.getElementById(toMoney).innerText = newMoney1;
+
+                const currentSpent1 = document.getElementById(spentCurrent).innerText;
+                const currentSpentNumber1 = parseFloat(currentSpent1);
+                const totalSpent1 = currentSpentNumber1 - perMinus;
+                document.getElementById(spentCurrent).innerText = totalSpent1;
+
+                const totalTax1 = parseFloat(document.getElementById(taxAdd).innerText);
+                const toTax = taxAddKor;
+                document.getElementById(taxAdd).innerText = totalTax1 - toTax;
+
+                const afterTax1 = document.getElementById(takaMinus).innerText;
+                const afterTaxNumber1 = parseFloat(afterTax1);
+                const totalAmount2 = afterTaxNumber1 - taxAddKor - perMinus;
+                document.getElementById(takaMinus).innerText = totalAmount2;
+            }
+        }
     </script>
 </body>
 
